@@ -1,0 +1,10 @@
+Document: werkzeug
+Title: Werkzeug Documentation
+Author: Armin Ronacher
+Abstract: This document describes Werkzeug - collection of utilities for WSGI
+ applications written in Python.
+Section: Programming/Python
+
+Format: HTML
+Index: /usr/share/doc/python-werkzeug-doc/html/index.html
+Files: /usr/share/doc/python-werkzeug-doc/html/*.html

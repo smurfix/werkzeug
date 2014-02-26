@@ -1,0 +1,16 @@
+# ubuntu.ttf has been removed from Debian package
+Index: python-werkzeug-0.8.1/werkzeug/debug/shared/style.css
+===================================================================
+--- python-werkzeug-0.8.1.orig/werkzeug/debug/shared/style.css
++++ python-werkzeug-0.8.1/werkzeug/debug/shared/style.css
+@@ -1,9 +1,7 @@
+ @font-face {
+-  font-family: 'Ubuntu';
++  font-family: 'Ubuntu', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana';
+   font-style: normal;
+   font-weight: normal;
+-  src: local('Ubuntu'), local('Ubuntu-Regular'),
+-    url('?__debugger__=yes&cmd=resource&f=ubuntu.ttf') format('truetype');
+ }
+ 
+ body, input  { font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva',

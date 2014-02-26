@@ -1,0 +1,3 @@
+version=3
+opts=dversionmangle=s/\+dfsg// \
+http://pypi.python.org/packages/source/W/Werkzeug/Werkzeug-(.*)\.tar\.gz

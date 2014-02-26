@@ -1,0 +1,52 @@
+#!/usr/bin/make -f
+
+# Copyright 2009, Noah Slater <nslater@tumbolia.org>
+
+# Copying and distribution of this file, with or without modification, are
+# permitted in any medium without royalty provided the copyright notice and this
+# notice are preserved.
+
+export PYBUILD_DESTDIR_python2=debian/python-werkzeug/
+export PYBUILD_DESTDIR_python3=debian/python3-werkzeug/
+
+%:
+	dh $@ --with python2,python3,sphinxdoc --buildsystem pybuild
+
+override_dh_auto_clean:
+	make -C docs clean
+	rm -rf build Werkzeug.egg-info/
+	#find $(CURDIR) \( -name '\._*' -o -name '\.DS_Store' \) -delete
+	dh_auto_clean
+
+override_dh_auto_test:
+	set -ex; \
+		memcached -p 11211 -l 127.0.0.1 & \
+		trap "kill $$! || true" EXIT; \
+		http_proxy='' dh_auto_test; \
+
+override_dh_auto_install:
+	dh_auto_install
+	make documentation
+
+override_dh_python2:
+	dh_python2
+	dh_link -p python-werkzeug /usr/share/javascript/jquery/jquery.js \
+	  /usr/share/pyshared/werkzeug/debug/shared/jquery.js
+
+override_dh_python3:
+	dh_python3
+	dh_link -p python3-werkzeug /usr/share/javascript/jquery/jquery.js \
+	  /usr/lib/python3/dist-packages/werkzeug/debug/shared/jquery.js
+
+override_dh_fixperms:
+	find debian/ -name '*\.png' -exec chmod -x '{}' \;
+	dh_fixperms
+
+get-orig-source:
+	trap 'rm -rf $(CURDIR)/.werkzeug-tarball' EXIT;\
+	VER=$(shell dpkg-parsechangelog | sed -rne 's,^Version: ([^-+]+).*,\1,p') &&\
+	mkdir -p .werkzeug-tarball &&\
+	uscan --force-download --rename --destdir=.werkzeug-tarball --upstream-version=$$VER &&\
+	cd .werkzeug-tarball &&\
+	tar xf python-werkzeug*tar.gz --exclude ubuntu.ttf --exclude FONT_LICENSE &&\
+	tar Jcf ../python-werkzeug_$$VER+dfsg.orig.tar.xz Werkzeug-$$VER

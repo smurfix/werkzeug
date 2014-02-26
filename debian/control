@@ -1,0 +1,65 @@
+Source: python-werkzeug
+Section: python
+Priority: optional
+Maintainer: Noah Slater <nslater@tumbolia.org>
+Uploaders: Piotr Ożarowski <piotr@debian.org>,
+ Python Modules Packaging Team <python-modules-team@lists.alioth.debian.org>
+Standards-Version: 3.9.5
+Build-Depends: debhelper (>= 9), dh-python, python-sphinx (>= 1.0.7+dfsg-1~),
+ python-all, python3-all,
+ python-setuptools (>= 0.6b3), python3-setuptools (>= 0.6b3),
+# for tests:
+ python-simplejson, python3-simplejson,
+ python-nose, python3-nose,
+ python-lxml, python3-lxml,
+ redis-server, python-redis,
+ memcached, python-pylibmc
+Homepage: http://werkzeug.pocoo.org/
+Vcs-Svn: svn://anonscm.debian.org/python-modules/packages/python-werkzeug/trunk/
+Vcs-Browser: http://anonscm.debian.org/viewvc/python-modules/packages/python-werkzeug/trunk/
+X-Python-Version: >= 2.5
+X-Python3-Version: >= 3.3
+
+Package: python-werkzeug
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, libjs-jquery
+Recommends: python-simplejson | python (>= 2.6), python-openssl, python-pyinotify
+Suggests: ipython, python-genshi, python-pkg-resources, python-lxml,
+ python-greenlet, python-redis, python-pylibmc | python-memcache,
+ python-werkzeug-doc
+Description: collection of utilities for WSGI applications
+ The Web Server Gateway Interface (WSGI) is a standard interface between web
+ server software and web applications written in Python.
+ .
+ Werkzeug is a lightweight library for interfacing with WSGI. It features
+ request and response objects, an interactive debugging system and a powerful
+ URI dispatcher. Combine with your choice of third party libraries and
+ middleware to easily create a custom application framework.
+
+Package: python3-werkzeug
+Architecture: all
+Depends: ${python3:Depends}, ${misc:Depends}, libjs-jquery
+Recommends: python3-simplejson | python3, python3-openssl, python3-pyinotify
+Suggests: ipython3, python3-pkg-resources, python3-lxml,
+ python-werkzeug-doc
+Description: collection of utilities for WSGI applications
+ The Web Server Gateway Interface (WSGI) is a standard interface between web
+ server software and web applications written in Python.
+ .
+ Werkzeug is a lightweight library for interfacing with WSGI. It features
+ request and response objects, an interactive debugging system and a powerful
+ URI dispatcher. Combine with your choice of third party libraries and
+ middleware to easily create a custom application framework.
+
+Package: python-werkzeug-doc
+Section: doc
+Architecture: all
+Priority: extra
+Depends: ${misc:Depends}, ${sphinxdoc:Depends}
+Conflicts: python-werkzeug (<< 0.9.3+dfsg-2)
+Replaces: python-werkzeug (<< 0.9.3+dfsg-2)
+Description: documentation for the werkzeug Python library
+ Werkzeug is a lightweight library for interfacing with WSGI. It features
+ request and response objects, an interactive debugging system and a powerful
+ URI dispatcher. Combine with your choice of third party libraries and
+ middleware to easily create a custom application framework.
