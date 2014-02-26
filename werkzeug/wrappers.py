@@ -17,7 +17,7 @@
     decoded into an unicode object if possible and if it makes sense.
 
 
-    :copyright: (c) 2013 by the Werkzeug Team, see AUTHORS for more details.
+    :copyright: (c) 2014 by the Werkzeug Team, see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """
 from functools import update_wrapper
@@ -254,6 +254,7 @@ class BaseRequest(object):
         """
         from werkzeug.test import EnvironBuilder
         charset = kwargs.pop('charset', cls.charset)
+        kwargs['charset'] = charset
         builder = EnvironBuilder(*args, **kwargs)
         try:
             return builder.get_request(cls)
@@ -960,7 +961,6 @@ class BaseResponse(object):
         value of this method is used as application iterator unless
         :attr:`direct_passthrough` was activated.
         """
-        charset = self.charset
         if __debug__:
             _warn_if_string(self.response)
         # Encode in a separate function so that self.response is fetched
@@ -1136,7 +1136,8 @@ class BaseResponse(object):
         if self.automatically_set_content_length and \
            self.is_sequence and content_length is None and status != 304:
             try:
-                content_length = sum(len(to_bytes(x, 'ascii')) for x in self.response)
+                content_length = sum(len(to_bytes(x, 'ascii'))
+                                     for x in self.response)
             except UnicodeError:
                 # aha, something non-bytestringy in there, too bad, we
                 # can't safely figure out the length of the response.

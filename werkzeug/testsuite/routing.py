@@ -5,10 +5,11 @@
 
     Routing tests.
 
-    :copyright: (c) 2013 by Armin Ronacher.
+    :copyright: (c) 2014 by Armin Ronacher.
     :license: BSD, see LICENSE for more details.
 """
 import unittest
+import uuid
 
 from werkzeug.testsuite import WerkzeugTestCase
 
@@ -422,6 +423,14 @@ class RoutingTestCase(WerkzeugTestCase):
         assert a.match('/c/3') == ('c', {'c': '3'})
         assert 'foo' not in r.Map.default_converters
 
+    def test_uuid_converter(self):
+        m = r.Map([
+            r.Rule('/a/<uuid:a_uuid>', endpoint='a')
+        ])
+        a = m.bind('example.org', '/')
+        rooute, kwargs =  a.match('/a/a8098c1a-f86e-11da-bd1a-00112444be1e')
+        assert type(kwargs['a_uuid']) == uuid.UUID
+
     def test_build_append_unknown(self):
         map = r.Map([
             r.Rule('/bar/<float:bazf>', endpoint='barf')
@@ -626,6 +635,22 @@ class RoutingTestCase(WerkzeugTestCase):
         exc.code = 307
         env = create_environ()
         self.assert_strict_equal(exc.get_response(env).status_code, exc.code)
+
+    def test_redirect_path_quoting(self):
+        url_map = r.Map([
+            r.Rule('/<category>', defaults={'page': 1}, endpoint='category'),
+            r.Rule('/<category>/page/<int:page>', endpoint='category')
+        ])
+
+        adapter = url_map.bind('example.com')
+        try:
+            adapter.match('/foo bar/page/1')
+        except r.RequestRedirect as e:
+            response = e.get_response({})
+            self.assert_strict_equal(response.headers['location'],
+                                     u'http://example.com/foo%20bar')
+        else:
+            self.fail('Expected redirect')
 
     def test_unicode_rules(self):
         m = r.Map([

@@ -5,7 +5,7 @@
 
     This module implements various URL related functions.
 
-    :copyright: (c) 2013 by the Werkzeug Team, see AUTHORS for more details.
+    :copyright: (c) 2014 by the Werkzeug Team, see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """
 import re
@@ -312,7 +312,7 @@ def _url_encode_impl(obj, charset, encode_keys, sort, key):
             key = text_type(key).encode(charset)
         if not isinstance(value, bytes):
             value = text_type(value).encode(charset)
-        yield url_quote(key) + '=' + url_quote_plus(value)
+        yield url_quote_plus(key) + '=' + url_quote_plus(value)
 
 
 def _url_unquote_legacy(value, unsafe=''):

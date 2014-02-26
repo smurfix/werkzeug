@@ -1,6 +1,40 @@
 Werkzeug Changelog
 ==================
 
+Version 0.10
+------------
+
+Release date and codename to be decided
+
+- Changed the error handling of and improved testsuite for the caches in
+  ``contrib.cache``.
+- Fixed a bug on Python 3 when creating adhoc ssl contexts, due to `sys.maxint`
+  not being defined.
+- Fixed a bug on Python 3, that caused
+  :func:`~werkzeug.serving.make_ssl_devcert` to fail with an exception.
+- Added exceptions for 504 and 505.
+- Added support for ChromeOS detection.
+- Added UUID converter to the routing system.
+- Added message that explains how to quit the server.
+- Fixed a bug on Python 2, that caused ``len`` for 
+  :class:`werkzeug.datastructures.CombinedMultiDict` to crash.
+
+Version 0.9.5
+-------------
+
+(bugfix release, release date to be decided)
+
+- Forward charset argument from request objects to the environ
+  builder.
+- Fixed error handling for missing boundaries in multipart data.
+- Fixed session creation on systems without ``os.urandom()``.
+- Fixed pluses in dictionary keys not being properly URL encoded.
+- Fixed a problem with deepcopy not working for multi dicts.
+- Fixed a double quoting issue on redirects.
+- Fixed a problem with unicode keys appearing in headers on 2.x.
+- Fixed a bug with unicode strings in the test builder.
+- Fixed a unicode bug on Python 3 in the WSGI profiler.
+
 Version 0.9.4
 -------------
 
@@ -16,7 +50,7 @@ Version 0.9.3
 
 (bugfix release, released on July 25th 2013)
 
-- Restored beahvior of the ``data`` descriptor of the request class to pre 0.9
+- Restored behavior of the ``data`` descriptor of the request class to pre 0.9
   behavior.  This now also means that ``.data`` and ``.get_data()`` have
   different behavior.  New code should use ``.get_data()`` always.
 
@@ -44,7 +78,6 @@ Version 0.9.2
   :func:`~werkzeug.local.release_local`.
 - Fixed an `AttributeError` that sometimes occurred when accessing the
   :attr:`werkzeug.wrappers.BaseResponse.is_streamed` attribute.
-
 
 Version 0.9.1
 -------------

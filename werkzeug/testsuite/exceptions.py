@@ -9,7 +9,7 @@
 
     -   This is undertested.  HTML is never checked
 
-    :copyright: (c) 2013 by Armin Ronacher.
+    :copyright: (c) 2014 by Armin Ronacher.
     :license: BSD, see LICENSE for more details.
 """
 import unittest
@@ -54,6 +54,8 @@ class ExceptionsTestCase(WerkzeugTestCase):
         self.assert_raises(exceptions.NotImplemented, abort, 501)
         self.assert_raises(exceptions.BadGateway, abort, 502)
         self.assert_raises(exceptions.ServiceUnavailable, abort, 503)
+        self.assert_raises(exceptions.GatewayTimeout, abort, 504)
+        self.assert_raises(exceptions.HTTPVersionNotSupported, abort, 505)
 
         myabort = exceptions.Aborter({1: exceptions.NotFound})
         self.assert_raises(LookupError, myabort, 404)

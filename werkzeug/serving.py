@@ -32,7 +32,7 @@
     instead of a simple start file.
 
 
-    :copyright: (c) 2013 by the Werkzeug Team, see AUTHORS for more details.
+    :copyright: (c) 2014 by the Werkzeug Team, see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """
 from __future__ import with_statement
@@ -277,7 +277,7 @@ def generate_adhoc_ssl_pair(cn=None):
         cn = '*'
 
     cert = crypto.X509()
-    cert.set_serial_number(int(random() * sys.maxint))
+    cert.set_serial_number(int(random() * sys.maxsize))
     cert.gmtime_adj_notBefore(0)
     cert.gmtime_adj_notAfter(60 * 60 * 24 * 365)
 
@@ -323,9 +323,9 @@ def make_ssl_devcert(base_path, host=None, cn=None):
     cert_file = base_path + '.crt'
     pkey_file = base_path + '.key'
 
-    with open(cert_file, 'w') as f:
+    with open(cert_file, 'wb') as f:
         f.write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
-    with open(pkey_file, 'w') as f:
+    with open(pkey_file, 'wb') as f:
         f.write(crypto.dump_privatekey(crypto.FILETYPE_PEM, pkey))
 
     return cert_file, pkey_file
@@ -695,8 +695,9 @@ def run_simple(hostname, port, application, use_reloader=False,
         display_hostname = hostname != '*' and hostname or 'localhost'
         if ':' in display_hostname:
             display_hostname = '[%s]' % display_hostname
-        _log('info', ' * Running on %s://%s:%d/', ssl_context is None
-             and 'http' or 'https', display_hostname, port)
+        quit_msg = '(Press CTRL+C to quit)'
+        _log('info', ' * Running on %s://%s:%d/ %s', ssl_context is None
+             and 'http' or 'https', display_hostname, port, quit_msg)
     if use_reloader:
         # Create and destroy a socket so that any exceptions are raised before
         # we spawn a separate Python interpreter and lose this ability.

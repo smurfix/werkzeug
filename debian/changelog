@@ -1,3 +1,9 @@
+python-werkzeug (0.10~git1-21a3724f3-1) unstable; urgency=low
+
+  * Upstream merge from git
+
+ -- Matthias Urlichs <matthias@urlichs.de>  Wed, 26 Feb 2014 09:41:00 +0100
+
 python-werkzeug (0.9.4+dfsg-1.1) unstable; urgency=medium
 
   * Non-maintainer upload.
