@@ -326,14 +326,14 @@ class HTTPUtilityTestCase(WerkzeugTestCase):
         val = http.dump_cookie(u'fö', u'fö')
         self.assert_equal(val, wsgi_encoding_dance(u'fö="f\\303\\266"; Path=/', 'utf-8'))
         cookies = http.parse_cookie(val)
-        self.assert_equal(cookies[u'fö'], u'fö')
+        self.assert_equal(cookies[u'fö'.encode("utf-8")], u'fö')
 
     def test_cookie_unicode_parsing(self):
         # This is actually a correct test.  This is what is being submitted
         # by firefox if you set an unicode cookie and we get the cookie sent
         # in on Python 3 under PEP 3333.
         cookies = http.parse_cookie(u'fÃ¶=fÃ¶')
-        self.assert_equal(cookies[u'fö'], u'fö')
+        self.assert_equal(cookies[u'fö'.encode("utf-8")], u'fö')
 
     def test_cookie_domain_encoding(self):
         val = http.dump_cookie('foo', 'bar', domain=u'\N{SNOWMAN}.com')
