@@ -1,3 +1,9 @@
+python-werkzeug (0.10~git2-43cf582db-1) unstable; urgency=medium
+
+  * Upstream merge from git
+
+ -- Matthias Urlichs <matthias@urlichs.de>  Fri, 16 May 2014 19:35:23 +0200
+
 python-werkzeug (0.10~git1-21a3724f3-2) unstable; urgency=low
 
   * Cookie names get stored as bytestrings
