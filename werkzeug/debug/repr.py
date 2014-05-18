@@ -222,8 +222,13 @@ class DebugReprGenerator(object):
             info = '?'
         if PY2:
             info = info.decode('utf-8', 'ignore')
-        return u'<span class="brokenrepr">&lt;broken repr (%s)&gt;' \
-               u'</span>' % escape(info.strip())
+        info = escape(info.strip())
+        if len(info) < 20:
+            return u'<span class="brokenrepr">&lt;broken repr (%s)&gt;' \
+                   u'</span>' % escape(info.strip())
+        else:
+            return u'<span class="brokenrepr">&lt;broken repr <span class="extended">(%s)</span>&gt;' \
+                   u'</span>' % escape(info.strip())
 
     def repr(self, obj):
         recursive = False

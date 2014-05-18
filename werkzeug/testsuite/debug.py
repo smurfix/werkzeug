@@ -103,6 +103,18 @@ class DebugReprTestCase(WerkzeugTestCase):
             u'<span class="brokenrepr">&lt;broken repr (Exception: '
             u'broken!)&gt;</span>')
 
+    def test_long_broken_repr(self):
+        long_msg = u"this is a very long exception message which " \
+                   u"is somewhat annoying and redundantly redundant!!!"
+        class Foo(object):
+            def __repr__(self):
+                raise Exception(long_msg)
+
+        self.assert_equal(
+            debug_repr(Foo()),
+            u'<span class="brokenrepr">&lt;broken repr <span class="extended">' \
+            u'(Exception: ' + long_msg + u')</span>&gt;</span>')
+
 
 class Foo(object):
     x = 42
