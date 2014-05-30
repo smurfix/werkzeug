@@ -1,3 +1,9 @@
+python-werkzeug (0.10~git3-8f311d277-1) unstable; urgency=medium
+
+  * Merge current Upstream
+
+ -- Matthias Urlichs <matthias@urlichs.de>  Sun, 18 May 2014 02:12:00 +0200
+
 python-werkzeug (0.10~git2-43cf582db-2) unstable; urgency=medium
 
   * Merge broken_repr extension
