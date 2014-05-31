@@ -1,3 +1,9 @@
+python-werkzeug (0.10~git3-8f311d277-3) smurf; urgency=medium
+
+  * Merge: hmac.compare_digest does not accept mixed string/unicode arguments.
+
+ -- Matthias Urlichs <matthias@urlichs.de>  Sat, 31 May 2014 06:57:28 +0200
+
 python-werkzeug (0.10~git3-8f311d277-2) unstable; urgency=medium
 
   * drop breaking cookie tests (for now)
