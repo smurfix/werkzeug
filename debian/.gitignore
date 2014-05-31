@@ -2,3 +2,6 @@
 /*.log
 /*.debhelper
 /*.substvars
+/python-werkzeug
+/python-werkzeug-doc
+/python3-werkzeug
